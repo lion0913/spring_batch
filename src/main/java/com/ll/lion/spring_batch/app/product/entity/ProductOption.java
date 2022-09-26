@@ -25,9 +25,11 @@ public class ProductOption extends BaseEntity {
 
     private String displaySize; //고객에게 노출되는 사이즈
 
-    private Integer price;
+    private int price;
 
-    private Integer wholeSalePrice;
+    private int salePrice;
+
+    private int wholeSalePrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
