@@ -1,4 +1,4 @@
-package com.ll.lion.spring_batch.product.entity;
+package com.ll.lion.spring_batch.app.product.entity;
 
 import com.ll.lion.spring_batch.app.base.entity.BaseEntity;
 import lombok.Getter;
@@ -23,6 +23,7 @@ public class ProductOption extends BaseEntity {
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Product product;
 
     private boolean isSoldOut; //품절여부
@@ -33,5 +34,10 @@ public class ProductOption extends BaseEntity {
         this.color = color;
         this.size = size;
         this.isSoldOut = false;
+    }
+
+    public boolean isOrderable(int quantity) {
+        if(isSoldOut == false) return true;
+        return getStock() >= quantity;
     }
 }

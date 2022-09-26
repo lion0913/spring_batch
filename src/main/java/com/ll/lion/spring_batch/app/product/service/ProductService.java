@@ -1,8 +1,8 @@
-package com.ll.lion.spring_batch.product.service;
+package com.ll.lion.spring_batch.app.product.service;
 
-import com.ll.lion.spring_batch.product.entity.Product;
-import com.ll.lion.spring_batch.product.entity.ProductOption;
-import com.ll.lion.spring_batch.product.repository.ProductRepository;
+import com.ll.lion.spring_batch.app.product.entity.Product;
+import com.ll.lion.spring_batch.app.product.entity.ProductOption;
+import com.ll.lion.spring_batch.app.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

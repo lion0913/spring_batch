@@ -4,9 +4,11 @@ package com.ll.lion.spring_batch.app.cart.service;
 import com.ll.lion.spring_batch.app.cart.entity.CartItem;
 import com.ll.lion.spring_batch.app.cart.repository.CartItemRepository;
 import com.ll.lion.spring_batch.app.member.entity.Member;
-import com.ll.lion.spring_batch.product.entity.ProductOption;
+import com.ll.lion.spring_batch.app.product.entity.ProductOption;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +34,15 @@ public class CartService {
 
         cartItemRepository.save(cartItem);
         return cartItem;
+    }
+
+    public List<CartItem> listByMember(Member member) {
+        List<CartItem> cartItems = cartItemRepository.findAllByMemberId(member.getId());
+
+        return cartItems;
+    }
+
+    public void deleteItem(CartItem cartItem) {
+        cartItemRepository.delete(cartItem);
     }
 }

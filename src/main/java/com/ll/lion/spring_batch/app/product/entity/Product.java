@@ -1,4 +1,4 @@
-package com.ll.lion.spring_batch.product.entity;
+package com.ll.lion.spring_batch.app.product.entity;
 
 import com.ll.lion.spring_batch.app.base.entity.BaseEntity;
 import lombok.*;

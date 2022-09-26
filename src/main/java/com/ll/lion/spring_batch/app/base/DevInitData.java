@@ -3,9 +3,10 @@ package com.ll.lion.spring_batch.app.base;
 import com.ll.lion.spring_batch.app.cart.service.CartService;
 import com.ll.lion.spring_batch.app.member.entity.Member;
 import com.ll.lion.spring_batch.app.member.service.MemberService;
-import com.ll.lion.spring_batch.product.entity.Product;
-import com.ll.lion.spring_batch.product.entity.ProductOption;
-import com.ll.lion.spring_batch.product.service.ProductService;
+import com.ll.lion.spring_batch.app.order.service.OrderService;
+import com.ll.lion.spring_batch.app.product.entity.Product;
+import com.ll.lion.spring_batch.app.product.entity.ProductOption;
+import com.ll.lion.spring_batch.app.product.service.ProductService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +18,7 @@ import java.util.Arrays;
 @Profile("dev")
 public class DevInitData {
     @Bean
-    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService) {
+    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
         return args ->
         {
             String password = "{noop}1234";
@@ -32,9 +33,12 @@ public class DevInitData {
             ProductOption productOption__RED_44 = product1.getProductOptions().get(0);
             ProductOption productOption__BLUE_44 = product1.getProductOptions().get(2);
 
-            cartService.addItem(member1, productOption__RED_44, 1); // productOption__RED_44 총 수량 1
-            cartService.addItem(member1, productOption__RED_44, 2); // productOption__RED_44 총 수량 3
-            cartService.addItem(member1, productOption__BLUE_44, 1); // productOption__BLUE_44 총 수량 1
+            cartService.addItem(member1, productOption__RED_44, 1);
+            cartService.addItem(member1, productOption__RED_44, 2);
+            cartService.addItem(member1, productOption__BLUE_44, 1);
+
+            //1번 회원의 장바구니 리스트를 가져옴
+            orderService.createFromCart(member1);
         };
     }
 }
