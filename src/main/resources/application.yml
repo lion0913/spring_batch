@@ -3,7 +3,7 @@ spring:
     active: secret
   batch:
     job:
-      names: ${job.name:helloWorldJob}
+      names: ${job.name:NONE}
     jdbc:
       initialize-schema: ALWAYS
   datasource:
@@ -15,4 +15,6 @@ spring:
     show-sql: true
     database: mysql   # ?? ?? ??
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # ?? ?? ??
-
+logging:
+  level:
+    com.ll.lion.spring_batch: debug
