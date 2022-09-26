@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: secret
+    active: dev, secret
   batch:
     job:
       names: ${job.name:NONE}
@@ -13,8 +13,10 @@ spring:
     password:
   jpa:
     show-sql: true
-    database: mysql   # ?? ?? ??
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # ?? ?? ??
+#    database: mysql   # ?? ?? ??
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # ?? ?? ??
+    hibernate:
+      ddl-auto: create
 logging:
   level:
     com.ll.lion.spring_batch: debug
