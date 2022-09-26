@@ -5,7 +5,6 @@ import com.ll.lion.spring_batch.product.entity.ProductOption;
 import com.ll.lion.spring_batch.product.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
