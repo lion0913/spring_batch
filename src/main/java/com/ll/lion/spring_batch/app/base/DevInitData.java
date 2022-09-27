@@ -21,10 +21,17 @@ import java.util.List;
 @Configuration
 @Profile("dev")
 public class DevInitData {
+
+    private boolean initDataDone = false;
+
     @Bean
     public CommandLineRunner initData(CashService cashService, MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
         return args ->
         {
+            if(initDataDone) return;
+
+            initDataDone = true;
+
             class Helper {
                 public Order order(Member member, List<ProductOption> productOptions) {
                     for (int i = 0; i < productOptions.size(); i++) {
