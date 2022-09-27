@@ -23,6 +23,7 @@ public class Product extends BaseEntity {
     private int salePrice;
     private String name;
     private String makerShopName;
+    private boolean isSoldOut; // 관련 옵션들이 전부 판매불능 상태일 때
 
 
     @Builder.Default
