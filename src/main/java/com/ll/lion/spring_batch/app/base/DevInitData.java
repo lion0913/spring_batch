@@ -51,6 +51,24 @@ public class DevInitData {
 
             int order1PayPrice = order1.calculatePayPrice();
             orderService.payByRestCashOnly(order1);
+
+
+            //환불
+            memberService.addCash(member2, 300_000, "충전_무통장입금"); // 캐쉬 충전
+            memberService.addCash(member2, 60_000, "충전_무통장입금");
+
+            ProductOption product2Option__BLACK_44 = product2.getProductOptions().get(0);
+            ProductOption product2Option__WHITE_44 = product2.getProductOptions().get(2);
+
+            cartService.addItem(member2, product2Option__BLACK_44, 2);
+            cartService.addItem(member2, productOption__BLUE_44, 1);
+            cartService.addItem(member2, product2Option__WHITE_44, 1);
+
+            Order order2 = orderService.createFromCart(member2);
+            int order2PayPrice = order2.calculatePayPrice();
+            orderService.payByRestCashOnly(order2);
+
+            orderService.refund(order2);
         };
     }
 }

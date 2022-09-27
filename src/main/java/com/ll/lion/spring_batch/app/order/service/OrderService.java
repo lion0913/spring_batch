@@ -75,4 +75,10 @@ public class OrderService {
 
         orderRepository.save(order);
     }
+
+    @Transactional
+    public void refund(Order order) {
+        order.setRefundDone();
+        orderRepository.save(order);
+    }
 }
