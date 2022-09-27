@@ -11,10 +11,11 @@ import org.springframework.stereotype.Service;
 public class CashService {
 
     private final CashLogRepository cashLogRepository;
-    public CashLog addCash(Member member, long amount) {
+    public CashLog addCash(Member member, long amount, String eventType) {
         CashLog cashLog = CashLog.builder()
                 .member(member)
                 .price(amount)
+                .eventType(eventType)
                 .build();
         cashLogRepository.save(cashLog);
 

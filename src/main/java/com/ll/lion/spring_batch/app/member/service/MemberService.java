@@ -32,8 +32,8 @@ public class MemberService {
     }
 
     @Transactional
-    public long addCash(Member member, long amount) {
-        CashLog cashLog = cashService.addCash(member, amount);
+    public long addCash(Member member, long amount, String eventType) {
+        CashLog cashLog = cashService.addCash(member, amount, eventType);
 
         long newRestCash = member.getRestCash() + cashLog.getPrice();
         member.setRestCash(newRestCash);

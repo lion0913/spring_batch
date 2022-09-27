@@ -21,4 +21,6 @@ public class CashLog extends BaseEntity {
     private Member member;
 
     private long price;
+
+    private String eventType;
 }
