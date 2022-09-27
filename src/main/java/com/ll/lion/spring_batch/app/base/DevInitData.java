@@ -4,6 +4,7 @@ import com.ll.lion.spring_batch.app.cart.service.CartService;
 import com.ll.lion.spring_batch.app.cash.service.CashService;
 import com.ll.lion.spring_batch.app.member.entity.Member;
 import com.ll.lion.spring_batch.app.member.service.MemberService;
+import com.ll.lion.spring_batch.app.order.entity.Order;
 import com.ll.lion.spring_batch.app.order.service.OrderService;
 import com.ll.lion.spring_batch.app.product.entity.Product;
 import com.ll.lion.spring_batch.app.product.entity.ProductOption;
@@ -31,6 +32,7 @@ public class DevInitData {
             memberService.addCash(member1, 10_000, "충전_무통장입금"); // 캐쉬 충전
             memberService.addCash(member1, 60_000, "충전_무통장입금");
             memberService.addCash(member1, -5_000, "출금_일반");
+            memberService.addCash(member1, 300_000, "충전__무통장입금");
 
             long cash = memberService.getRestCash(member1); // 보유 캐쉬 확인
 
@@ -45,7 +47,10 @@ public class DevInitData {
             cartService.addItem(member1, productOption__BLUE_44, 1);
 
             //1번 회원의 장바구니 리스트를 가져옴
-            orderService.createFromCart(member1);
+            Order order1 = orderService.createFromCart(member1);
+
+            int order1PayPrice = order1.calculatePayPrice();
+            orderService.payByRestCashOnly(order1);
         };
     }
 }

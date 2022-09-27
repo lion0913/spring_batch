@@ -3,22 +3,26 @@ package com.ll.lion.spring_batch.app.order.service;
 import com.ll.lion.spring_batch.app.cart.entity.CartItem;
 import com.ll.lion.spring_batch.app.cart.service.CartService;
 import com.ll.lion.spring_batch.app.member.entity.Member;
+import com.ll.lion.spring_batch.app.member.service.MemberService;
 import com.ll.lion.spring_batch.app.order.entity.Order;
 import com.ll.lion.spring_batch.app.order.entity.OrderItem;
 import com.ll.lion.spring_batch.app.order.repository.OrderRepository;
 import com.ll.lion.spring_batch.app.product.entity.ProductOption;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class OrderService {
 
     private final CartService cartService;
+    private final MemberService memberService;
 
     private final OrderRepository orderRepository;
 
@@ -52,5 +56,23 @@ public class OrderService {
         orderRepository.save(order);
 
         return order;
+    }
+
+    @Transactional
+    public void payByRestCashOnly(Order order) {
+        Member member = order.getMember();
+        long restCash = member.getRestCash();
+
+        int payPrice = order.calculatePayPrice();
+
+        if(payPrice > restCash) {
+            throw new RuntimeException("예치금이 부족합니다");
+        }
+
+        memberService.addCash(member, payPrice * -1, "주문결제_예치금");
+
+        order.setPaymentDone();
+
+        orderRepository.save(order);
     }
 }
