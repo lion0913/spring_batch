@@ -33,7 +33,7 @@ public class Product extends BaseEntity {
         option.setProduct(this);
         option.setPrice(getPrice());
         option.setSalePrice(getSalePrice());
-        option.setWholeSalePrice(getWholesalePrice());
+        option.setWholesalePrice(getWholesalePrice());
         productOptions.add(option);
     }
 }

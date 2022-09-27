@@ -29,7 +29,7 @@ public class ProductOption extends BaseEntity {
 
     private int salePrice;
 
-    private int wholeSalePrice;
+    private int wholesalePrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude

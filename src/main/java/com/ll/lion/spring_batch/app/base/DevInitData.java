@@ -1,6 +1,7 @@
 package com.ll.lion.spring_batch.app.base;
 
 import com.ll.lion.spring_batch.app.cart.service.CartService;
+import com.ll.lion.spring_batch.app.cash.service.CashService;
 import com.ll.lion.spring_batch.app.member.entity.Member;
 import com.ll.lion.spring_batch.app.member.service.MemberService;
 import com.ll.lion.spring_batch.app.order.service.OrderService;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 @Profile("dev")
 public class DevInitData {
     @Bean
-    public CommandLineRunner initData(MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
+    public CommandLineRunner initData(CashService cashService, MemberService memberService, ProductService productService, CartService cartService, OrderService orderService) {
         return args ->
         {
             String password = "{noop}1234";
@@ -26,6 +27,12 @@ public class DevInitData {
             Member member2 = memberService.join("user2", password, "user2@test.com");
             Member member3 = memberService.join("user3", password, "user3@test.com");
             Member member4 = memberService.join("user4", password, "user4@test.com");
+
+            memberService.addCash(member1, 10_000); // 캐쉬 충전
+            memberService.addCash(member1, 60_000);
+            memberService.addCash(member1, -5_000);
+
+            long cash = memberService.getRestCash(member1); // 보유 캐쉬 확인
 
             Product product1 = productService.create("단가라 OPS", 68000, 45000, "청평화 A-1-15", Arrays.asList(new ProductOption("RED", "44"), new ProductOption("RED", "55"), new ProductOption("BLUE", "44"), new ProductOption("BLUE", "55")));
             Product product2 = productService.create("쉬폰 OPS", 72000, 58000,"청평화 A-1-15", Arrays.asList(new ProductOption("BLACK", "44"), new ProductOption("BLACK", "55"), new ProductOption("WHITE", "44"), new ProductOption("WHITE", "55")));
